@@ -15,7 +15,7 @@ async function Subreddit({ sub }) {
     const isJoined = members.filter(member => member.userId  === userId)
     return (
         <div className='flex justify-between my-5'>
-            <Link className='text-xl' href={`/subreddits/${sub.name}`}>{sub.name}</Link>
+            <Link className='text-xl' href={`/r/${sub.name}`}>{sub.name}</Link>
             <div className='flex items-center justify-center'>
                 <h3 className='text-gray mx-5'>{members.length} Members</h3>
                 {isJoined.length > 0 ? <LeaveForm sid={sub.id}/> : <JoinForm sid={sub.id} />}
