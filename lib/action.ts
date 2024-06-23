@@ -198,6 +198,52 @@ export async function createPost(prevState: any, formData: FormData) {
     }
 }
 
+export async function deletePost(pid) {
+    const { userId } = auth()
+    if(!userId) {
+        return {
+            type: 'error',
+            message: 'You need to login to continue'
+        }
+    }
+    const post = client.post.findFirst({
+        where: {
+            id: pid
+        }
+    })
+    if(!post){
+        return {
+            type: 'error',
+            message: 'No such post'
+        }
+    }
+    if(post.userId !== userId) {
+        return {
+            type: 'error',
+            message: 'Wrong user'
+        }
+    }
+    try {
+        await client.post.delete({
+            where: {
+                id: pid
+            }
+        })
+        revalidatePath('/')
+        return {
+            type: 'success',
+            message: 'Post deleted successfully'
+        }
+    } catch (e) {
+        console.error(e)
+        revalidatePath('/')
+        return {
+            type: 'error',
+            message: 'Something went wrong'
+        }
+    }
+}
+
 export async function  upvotePost(prevState: any, formData: FormData){
     const { userId } = auth()
     if(!userId){

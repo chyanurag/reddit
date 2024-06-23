@@ -1,6 +1,4 @@
 'use client'
-import client from "@/lib/prisma"
-import { notFound } from "next/navigation"
 import { useFormStatus, useFormState } from 'react-dom'
 import { createPost } from '@/lib/action'
 
@@ -22,7 +20,7 @@ export default function NewPost({ params } : {
     return (
         <div>
             <h1 className="text-2xl font-medium my-5 text-center shadow-orange-500">Add a new post</h1>
-            <form action={dispatch} className="flex flex-col p-10 shadow-lg w-1/4 mx-auto my-10">
+            <form action={dispatch} className="flex flex-col px-5 shadow-lg w-2/4 mx-auto my-10">
                 <h3 className={state?.type === "error" ? "text-red-500" : "text-green-500"}>{state?.message}</h3>
                 <input type="hidden" value={params.subName} name="sname"/>
                 <label htmlFor="title" className="my-5">Title</label>

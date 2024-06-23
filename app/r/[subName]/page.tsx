@@ -36,6 +36,7 @@ async function Post({ post }) {
             userId: userId || ''
         }
     })
+
     return (
         <div className="m-5 shadow-lg bg-gray-100 p-5">
             <div className='flex justify-between'>

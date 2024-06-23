@@ -15,9 +15,11 @@ export default async function Home() {
     }
 
     return (
-        <main className='text-center'>
-            <h1 className='m-5'>Hello {user?.username}</h1>
-            <Link href="/r/new" className='p-3 text-md text-white bg-orange-500'>New Subreddit</Link>
-        </main>
+        <>
+            <main className='text-center'>
+                <h1 className='m-5'>Hello {user?.username}</h1>
+                <Link href="/r/new" className='p-3 text-md text-white bg-orange-500'>New Subreddit</Link>
+            </main>
+        </>
     )
 }
