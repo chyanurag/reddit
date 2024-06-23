@@ -5,6 +5,8 @@ import path from 'node:path'
 import { revalidatePath } from 'next/cache'
 import client from './prisma'
 
+const ALLOWED_EXTENSIONS = ['.jpeg', '.jpg', '.png', '.webp']
+
 export async function createSubreddit(prevState: any, formData: FormData) {
     const { userId } = auth()
     if(!userId){
@@ -161,7 +163,13 @@ export async function createPost(prevState: any, formData: FormData) {
             const array = await file.arrayBuffer()
             const buffer = new Uint8Array(array);
             try{
-                console.log(process.cwd())
+                const extension = path.extname(file.name.toLowerCase())
+                if(!ALLOWED_EXTENSIONS.includes(extension)){
+                    return {
+                        type: 'error',
+                        message: 'Only image files supported'
+                    }
+                }
                 await fs.writeFile(`./public/uploads/${file.name}`, buffer)
                 const imageUrl = `/uploads/${file.name}`
                 await client.post.update({
